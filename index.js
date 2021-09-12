@@ -3,7 +3,8 @@ const { Client, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
 let katextual;
-(async () => {katextual = await KaTeXtual.getInstance();})();
+(async () => {katextual = await KaTeXtual.getInstance();katextual.initMhChem();})();
+
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
