@@ -21,9 +21,23 @@ client.on('interactionCreate', async interaction => {
     const { commandName } = interaction;
 
     if (commandName === 'render') {
-        await interaction.reply({
-            files: [ await katextual.renderPng(interaction.options.getString('commands')) ],
-        });
+        try {
+            let commands = interaction.options.getString('commands');
+
+            commands = commands.replace(/^```/g, '')
+            commands = commands.replace(/```$/g, '')
+            commands = commands.replace(/^`/g, '')
+            commands = commands.replace(/`$/g, '')
+            commands = commands.replaceAll('\\n', '\n')
+
+            console.log(commands)
+
+            await interaction.reply({
+                files: [await katextual.renderPng(commands)],
+            });
+        } catch (e) {
+            await interaction.reply(`\`\`\`${e.toString()}\`\`\``);
+        }
     }
 });
 
